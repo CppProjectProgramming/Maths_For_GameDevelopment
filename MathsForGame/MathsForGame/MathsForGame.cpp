@@ -8,6 +8,7 @@
 #include "Vector.h"
 
 
+using namespace std;
 
 int main()
 {
@@ -17,7 +18,7 @@ int main()
 
 	Vector V = P - I; // This means that The vector we get will be Going from I to P 
 
-	std::cout << V.x << ", " << V.y;
+	cout << V.Length() << endl;
 	
    
 }

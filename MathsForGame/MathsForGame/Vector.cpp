@@ -1,11 +1,16 @@
 #include "pch.h"
 #include "Vector.h"
-
+#include <math.h>
 
 Vector::Vector() {}
 Vector::Vector(float x, float y) : x(x), y(y){}
 
 
+
+float Vector::Length() const
+{
+	return sqrt(x * x + y * y);
+}
 
 Point Point::AddVector(Vector v)
 {
