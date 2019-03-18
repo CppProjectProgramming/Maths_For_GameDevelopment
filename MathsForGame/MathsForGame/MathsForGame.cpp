@@ -12,12 +12,10 @@ using namespace std;
 
 int main()
 {
-	Vector v(2, 2);
-	Vector normalized = v.Normalized();
-	cout << normalized.x << " , " << normalized.y << endl;
+	Vector A(2, 2);
+	Vector B(-3, 4);
 
-	cout << "Normalized Legnth: " << normalized.Length() << endl;
-
+	cout << (A + B).x << " , " << (A + B).y << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

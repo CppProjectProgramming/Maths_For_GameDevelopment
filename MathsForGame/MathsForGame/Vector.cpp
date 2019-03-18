@@ -53,6 +53,19 @@ Vector Vector::operator/(float s) const
 }
 
 
+Vector Vector::operator+(const Vector& other) const
+{
+	Vector added;
+	added.x = x + other.x;
+	added.y = y + other.y;
+	return added;
+}
+
+Vector Vector::operator-(const Vector& other) const
+{
+	return Vector(x - other.x, y - other.y);
+}
+
 /**
  * 
  */

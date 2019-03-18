@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 class Vector;
 struct Point
 {
@@ -20,6 +21,8 @@ public:
 
 	Vector operator*(float x) const;
 	Vector operator/(float x) const;
+	Vector operator+(const Vector& other) const;
+	Vector operator-(const Vector& other) const;
 
 
 
