@@ -1,4 +1,5 @@
 #pragma once
+
 class Vector;
 struct Point
 {
@@ -15,9 +16,12 @@ public:
 	Vector(float x, float y);
 	float Length() const;
 	float LengthSqrt() const;
+	Vector Normalized() const;
 
 	Vector operator*(float x) const;
 	Vector operator/(float x) const;
+
+
 
 public:
 

@@ -12,14 +12,11 @@ using namespace std;
 
 int main()
 {
-	Vector v(3, 4);
-	cout << v.Length() << endl;
+	Vector v(2, 2);
+	Vector normalized = v.Normalized();
+	cout << normalized.x << " , " << normalized.y << endl;
 
-	Vector doubled = v * 2;
-	cout << doubled.Length() << endl;
-
-	Vector halfed = v / 2;
-	cout << halfed.Length() << endl;
+	cout << "Normalized Legnth: " << normalized.Length() << endl;
 
 }
 

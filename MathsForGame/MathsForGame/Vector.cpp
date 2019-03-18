@@ -24,6 +24,18 @@ float Vector::LengthSqrt() const
 	return x * x + y * y;
 }
 
+/*
+ * Getting The Normal of a vector by Dividing the Vector over its Length, it is  Always unit length !
+ * get's the direction of where the character is looking (Unit Legnth Vector) meaning its magnitued is always ONE.
+ * Formula ::  UnitVec = Vec / Vec.Length"Magnitude".  
+ */
+Vector Vector::Normalized() const
+{
+	Vector normalized;
+	normalized = (*this) / Length();
+	return normalized;
+}
+
 Vector Vector::operator*(float s) const
 {
 	Vector scaled;
@@ -39,6 +51,7 @@ Vector Vector::operator/(float s) const
 	scaled.y = y / s;
 	return scaled;
 }
+
 
 /**
  * 
@@ -60,3 +73,5 @@ Vector operator-(Point a, Point b)
 
 	return v;
 }
+
+
