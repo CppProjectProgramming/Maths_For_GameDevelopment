@@ -11,8 +11,10 @@ struct Point
 class Vector
 {
 public:
+	Vector();
 	Vector(float x, float y);
 
 	float x, y;
 };
 
+Vector operator-(Point a, Point b);

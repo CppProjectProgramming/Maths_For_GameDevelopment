@@ -11,13 +11,13 @@
 
 int main()
 {
-	Point P(1, 0);
+	Point P(0, -1);
 
-	Vector v(2, 3);
+	Point I(1, 1);
 
-	Point P2 = P.AddVector(v);
+	Vector V = P - I; // This means that The vector we get will be Going from I to P 
 
-	std::cout << P2.x << ", " << P2.y;
+	std::cout << V.x << ", " << V.y;
 	
    
 }
