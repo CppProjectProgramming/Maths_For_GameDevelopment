@@ -14,6 +14,7 @@ public:
 	Vector();
 	Vector(float x, float y);
 	float Length() const;
+	float LengthSqrt() const;
 public:
 
 	float x, y;

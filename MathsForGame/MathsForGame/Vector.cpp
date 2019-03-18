@@ -6,12 +6,27 @@ Vector::Vector() {}
 Vector::Vector(float x, float y) : x(x), y(y){}
 
 
-
+/**
+* Used to get the length from point to a point
+*/
 float Vector::Length() const
 {
 	return sqrt(x * x + y * y);
 }
 
+/**
+ * we use this to return the Length (magnitude) squared to see who is further in distance to another point vector
+ * We used this instead of using sqrt(x * x  + y * y ) , why ? because sqrt is kinda a heavy operation on the cpu even tho it is kinda normal these days 
+ * with our modern computers, but still it would matter for continous comparison.
+ */
+float Vector::LengthSqrt() const
+{
+	return x * x + y * y;
+}
+
+/**
+ * 
+ */
 Point Point::AddVector(Vector v)
 {
 	Point p2;

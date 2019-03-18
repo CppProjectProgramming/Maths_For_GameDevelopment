@@ -16,9 +16,16 @@ int main()
 
 	Point I(1, 1);
 
-	Vector V = P - I; // This means that The vector we get will be Going from I to P 
+	Point C(2, -1);
 
-	cout << V.Length() << endl;
+	Vector CP = P - C;
+
+	Vector IP = P - I;
+
+	float LengthSqrtCP = CP.LengthSqrt();
+	float LengthSqrtIP = IP.LengthSqrt();
+
+	cout << LengthSqrtCP << " : " << LengthSqrtIP << endl;
 	
    
 }
