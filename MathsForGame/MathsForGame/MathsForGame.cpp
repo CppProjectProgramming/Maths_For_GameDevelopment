@@ -12,22 +12,15 @@ using namespace std;
 
 int main()
 {
-	Point P(0, -1);
+	Vector v(3, 4);
+	cout << v.Length() << endl;
 
-	Point I(1, 1);
+	Vector doubled = v * 2;
+	cout << doubled.Length() << endl;
 
-	Point C(2, -1);
+	Vector halfed = v / 2;
+	cout << halfed.Length() << endl;
 
-	Vector CP = P - C;
-
-	Vector IP = P - I;
-
-	float LengthSqrtCP = CP.LengthSqrt();
-	float LengthSqrtIP = IP.LengthSqrt();
-
-	cout << LengthSqrtCP << " : " << LengthSqrtIP << endl;
-	
-   
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

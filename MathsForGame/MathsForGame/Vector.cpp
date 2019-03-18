@@ -24,6 +24,22 @@ float Vector::LengthSqrt() const
 	return x * x + y * y;
 }
 
+Vector Vector::operator*(float s) const
+{
+	Vector scaled;
+	scaled.x = x * s;
+	scaled.y = y * s;
+	return scaled;
+}
+
+Vector Vector::operator/(float s) const
+{
+	Vector scaled;
+	scaled.x = x / s;
+	scaled.y = y / s;
+	return scaled;
+}
+
 /**
  * 
  */
