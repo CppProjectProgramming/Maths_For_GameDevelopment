@@ -1,7 +1,7 @@
 #include "vector.h"
 
 #include <cmath>
-
+#include <iostream>
 Vector::Vector(const Point& p)
 	: x(p.x), y(p.y), z(p.z)
 {
@@ -25,6 +25,29 @@ Vector Vector::operator-(const Vector& v) const
 Vector Vector::Normalized() const
 {
 	return (*this) / Length();
+}
+
+
+void Vector::Normalize()
+{
+	(*this) = (*this) / Length();
+}
+
+float Vector::Dot(const Vector& v) const
+{
+	return x * v.x + y * v.y + z * v.z;
+}
+
+
+Vector Vector::Cross(const Vector v) const
+{
+	Vector c;
+	// X Y Z Z Y
+	c.x = y * v.z - z * v.y;
+	c.y = z * v.x - x * v.z;
+	c.z = x * v.y - y * v.x;
+
+	return c;
 }
 
 Vector Vector::operator*(float s) const

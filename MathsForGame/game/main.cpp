@@ -6,6 +6,7 @@
 #include "renderer/renderer.h"
 #include "renderer/renderingcontext.h"
 #include "EAngle.h"
+#include <iostream>
 
 // CGame is the "application" class. It creates the window and handles user input.
 // It extends CApplication, which does all of the dirty work. All we have to do
@@ -46,10 +47,13 @@ class CCharacter
 {
 public:
 	Point vecPosition;
+	Vector vecMovement;
 	Vector vecVelocity;
-	Vector vecVelocityGoal;
+	Vector vecMovementGoal;
 	Vector vecGravity;
 	EAngle AngView;
+	float  flSpeed;
+
 };
 
 // We'll create a single character named "box"
@@ -60,27 +64,27 @@ bool CGame::KeyPress(int c)
 {
 	if (c == 'W')
 	{
-		box.vecVelocityGoal.z = 15;
+		box.vecMovementGoal.x = -box.flSpeed;
 		return true;
 	}
 	else if (c == 'A')
 	{
-		box.vecVelocityGoal.x = 15;
+		box.vecMovementGoal.z = -box.flSpeed;
 		return true;
 	}
 	else if (c == 'S')
 	{
-		box.vecVelocityGoal.z = -15;
+		box.vecMovementGoal.x = box.flSpeed;
 		return true;
 	}
 	else if (c == 'D')
 	{
-		box.vecVelocityGoal.x = -15;
+		box.vecMovementGoal.z = box.flSpeed;
 		return true;
 	}
 	else if (c == ' ')
 	{
-		box.vecVelocity.y = 2;
+		box.vecVelocity.y = 3;
 		return true;
 	}
 	else
@@ -92,19 +96,19 @@ void CGame::KeyRelease(int c)
 {
 	if (c == 'W')
 	{
-		box.vecVelocityGoal.z = 0;
+		box.vecMovementGoal.x = 0;
 	}
 	else if (c == 'A')
 	{
-		box.vecVelocityGoal.x = 0;
+		box.vecMovementGoal.z = 0;
 	}
 	else if (c == 'S')
 	{
-		box.vecVelocityGoal.z = 0;
+		box.vecMovementGoal.x = 0;
 	}
 	else if (c == 'D')
 	{
-		box.vecVelocityGoal.x = 0;
+		box.vecMovementGoal.z = 0;
 	}
 	else
 		CApplication::KeyPress(c);
@@ -115,7 +119,7 @@ void CGame::MouseMotion(int x, int y)
 {
 	int MouseMovedX = x - LastMouseX;
 	int MouseMovedY = y - LastMouseY;
-	float Sensitivity = 0.005f;
+	float Sensitivity = 0.01f;
 
 	box.AngView.Pitch += MouseMovedY * Sensitivity;
 	box.AngView.Yaw += MouseMovedX * Sensitivity;
@@ -130,16 +134,30 @@ void CGame::MouseMotion(int x, int y)
 // In this Update() function we need to update all of our characters. Move them around or whatever we want to do.
 void Update(float dt)
 {
-	box.vecVelocity.x = Approach(box.vecVelocityGoal.x, box.vecVelocity.x, dt * 40);
-	box.vecVelocity.z = Approach(box.vecVelocityGoal.z, box.vecVelocity.z, dt * 40);
+	box.vecMovement.x = Approach(box.vecMovementGoal.x, box.vecMovement.x, dt * 65);
+	box.vecMovement.z = Approach(box.vecMovementGoal.z, box.vecMovement.z, dt * 65);
 
-	// Update position and vecVelocity.
+	Vector vecForward = box.AngView.ToVector();
+	std::cout << "X : " << vecForward.x << std::endl;
+	std::cout << "Z : " << vecForward.z << std::endl;
+
+	vecForward.y = 0;
+	vecForward.Normalize();
+
+	Vector vecUp(0, 1, 0);
+
+	Vector vecRight = vecUp.Cross(vecForward);
+
+	box.vecVelocity = vecForward * box.vecMovement.x + vecRight * box.vecMovement.z;
+
+	// Update position and vecMovement.
 	box.vecPosition = box.vecPosition + box.vecVelocity * dt;
 	box.vecVelocity = box.vecVelocity + box.vecGravity * dt;
 
 	// Make sure the player doesn't fall through the floor. The y dimension is up/down, and the floor is at 0.
 	if (box.vecPosition.y < 0)
 		box.vecPosition.y = 0;
+
 }
 
 void Draw(CRenderer* pRenderer)
@@ -205,9 +223,13 @@ void Draw(CRenderer* pRenderer)
 void GameLoop(CRenderer* pRenderer)
 {
 	// Initialize the box's position etc
+	box.vecMovement = Vector(0, 0, 0);
+	box.vecMovementGoal = Vector(0, 0, 0);
 	box.vecPosition = Point(0, 0, 0);
 	box.vecVelocity = Vector(0, 0, 0);
 	box.vecGravity = Vector(0, -4, 0);
+	box.flSpeed = 20;
+
 
 	float flPreviousTime = 0;
 	float flCurrentTime = Application()->GetTime();
