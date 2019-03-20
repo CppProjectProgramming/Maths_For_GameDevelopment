@@ -177,6 +177,7 @@ void CApplication::WindowResize(int w, int h)
 
 void CApplication::MouseMotion(int x, int y)
 {
+	
 }
 
 bool CApplication::MouseInput(int iButton, tinker_mouse_state_t iState)

@@ -5,6 +5,7 @@
 #include "renderer/application.h"
 #include "renderer/renderer.h"
 #include "renderer/renderingcontext.h"
+#include "EAngle.h"
 
 // CGame is the "application" class. It creates the window and handles user input.
 // It extends CApplication, which does all of the dirty work. All we have to do
@@ -26,11 +27,18 @@ public:
 	CGame(int argc, char** argv)
 		: CApplication(argc, argv)
 	{
+		LastMouseX = 0;
+		LastMouseY = 0;
 	}
 
 public:
 	virtual bool KeyPress(int c);
 	virtual void KeyRelease(int c);
+	virtual void MouseMotion(int x, int y);
+
+private:
+	int LastMouseX;
+	int LastMouseY;
 };
 
 // This class holds information for a single character - eg the position and velocity of the player
@@ -41,6 +49,7 @@ public:
 	Vector vecVelocity;
 	Vector vecVelocityGoal;
 	Vector vecGravity;
+	EAngle AngView;
 };
 
 // We'll create a single character named "box"
@@ -101,6 +110,23 @@ void CGame::KeyRelease(int c)
 		CApplication::KeyPress(c);
 }
 
+// Method called every time the player moves the mouse
+void CGame::MouseMotion(int x, int y)
+{
+	int MouseMovedX = x - LastMouseX;
+	int MouseMovedY = y - LastMouseY;
+	float Sensitivity = 0.005f;
+
+	box.AngView.Pitch += MouseMovedY * Sensitivity;
+	box.AngView.Yaw += MouseMovedX * Sensitivity;
+
+	box.AngView.Normalize();
+
+	LastMouseX = x;
+	LastMouseY = y;
+
+}
+
 // In this Update() function we need to update all of our characters. Move them around or whatever we want to do.
 void Update(float dt)
 {
@@ -119,7 +145,7 @@ void Update(float dt)
 void Draw(CRenderer* pRenderer)
 {
 	// Tell the renderer how to set up the camera.
-	pRenderer->SetCameraPosition(box.vecPosition + Vector(0, 4, -6));
+	pRenderer->SetCameraPosition(box.vecPosition + box.AngView.ToVector() * 5);
 	pRenderer->SetCameraDirection(Vector(box.vecPosition - pRenderer->GetCameraPosition()).Normalized()); // Look at the box
 	pRenderer->SetCameraUp(Vector(0, 1, 0));
 	pRenderer->SetCameraFOV(90);

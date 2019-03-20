@@ -73,6 +73,7 @@
     <ClCompile Include="common\platform_win32.cpp" />
     <ClCompile Include="datamanager\data.cpp" />
     <ClCompile Include="datamanager\dataserializer.cpp" />
+    <ClCompile Include="EAngle.cpp" />
     <ClCompile Include="game\main.cpp" />
     <ClCompile Include="math\color.cpp" />
     <ClCompile Include="math\matrix.cpp" />
@@ -88,6 +89,7 @@
     <Library Include="lib\libglfw.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EAngle.h" />
     <ClInclude Include="math\color.h" />
     <ClInclude Include="math\maths.h" />
     <ClInclude Include="math\matrix.h" />
